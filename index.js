@@ -1,4 +1,3 @@
-// const puppeteer = require('puppeteer');
 const axios = require('axios');
 
 const randomProfileList = [
@@ -172,7 +171,7 @@ const apiRequest = async (url, listArray) => {
     network: {
       proxy: {
         type: 'HTTP',
-        host: listArray.ip,
+        host: listArray.ip_address,
         // port: listArray.port,
         // username: listArray.username,
         // password: listArray.password
@@ -182,12 +181,18 @@ const apiRequest = async (url, listArray) => {
 
   const headers = {
     'Content-Type': 'application/json',
-    'token': 'JWT fefege...' 
+    'token': 'Your token her' 
   }
 
-  let response = await axios.post(url, params, {headers: headers});
-  console.log('%c Log here:','background: #2C2C2C; color: green;', response);
-  return response;
+  try {
+    let response = await axios.post(url, params, {headers: headers});
+    console.log('%c Log here:','background: #2C2C2C; color: green;', response);
+    return response;
+  } catch (error) {
+    console.error(error);
+    return error 
+  }
+
 };
 
 const createProfile = async () => {
